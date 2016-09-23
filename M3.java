@@ -1,3 +1,23 @@
+/*
+ * Copyright (c) 2016 SNLAB and others.  All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
+package org.opendaylight.mapleapp.impl;
+
+import java.util.Map;
+
+import org.opendaylight.maple.core.increment.app.MapleAppBase;
+import org.opendaylight.maple.core.increment.app.MapleUtil;
+import org.opendaylight.maple.core.increment.packet.Ethernet;
+import org.opendaylight.maple.core.increment.packet.IPv4;
+import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
+import org.opendaylight.maple.core.increment.tracetree.Port;
+import org.opendaylight.maple.core.increment.tracetree.Route;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
+
 public class M3 extends MapleAppBase {
 
 	private static final int REAL_IP1 = IPv4.toIPv4Address("10.0.0.4");
