@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2016 SNLAB and others.  All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v1.0 which accompanies this distribution,
- * and is available at http://www.eclipse.org/legal/epl-v10.html
- */
-package org.maple.core.increment.app;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.maple.core.increment.packet.Ethernet;
-import org.maple.core.increment.packet.IPv4;
-import org.maple.core.increment.tracetree.MaplePacket;
-import org.maple.core.increment.tracetree.Port;
-import org.maple.core.increment.tracetree.Route;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
-
 public class M2 extends MapleAppBase {
 
 	private static final String TOPO_URL = "/root/network-topology/topology";
