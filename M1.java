@@ -36,7 +36,7 @@ public class M1 extends MapleAppBase {
 	@Override
 	public void onPacket(MaplePacket pkt) {
 
-		EthernetType ethType = pkt.etherType();
+		short ethType = pkt.etherType();
 
 		// For IPv4 traffic only
 		if ( ethType == Ethernet.TYPE_IPv4) ) {
