@@ -36,7 +36,13 @@ public class M1 extends MapleAppBase {
 	@Override
 	public void onPacket(MaplePacket pkt) {
 
-		if ( pkt.ethTypeIs(Ethernet.TYPE_IPv4) ) {
+		// For non-IPv4 traffic; Use the next Maple App
+		if ( !pkt.ethTypeIs(Ethernet.TYPE_IPv4) ) {
+
+			this.passToNext(pkt);
+
+		}
+		else {
 
 			// H1 (client) -> H2 (server)
 			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
@@ -70,11 +76,6 @@ public class M1 extends MapleAppBase {
 				pkt.setRoute(Route.DROP);
 
 			}
-
-		} else {  // For non-IPv4 traffic; Use the next Maple App
-
-			this.passToNext(pkt);
-
 		}
 
 	} // end of onPacket
