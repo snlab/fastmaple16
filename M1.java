@@ -5,8 +5,11 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
+
+//TODO: package name
 package org.opendaylight.mapleapp.impl;
 
+// TODO: Need all these packages??
 import org.opendaylight.maple.core.increment.app.MapleAppBase;
 import org.opendaylight.maple.core.increment.packet.Ethernet;
 import org.opendaylight.maple.core.increment.packet.IPv4;
@@ -21,9 +24,9 @@ public class M1 extends MapleAppBase {
 	private static final String      H2    = "10.0.0.2";
 	private static final IPv4Address H2_IP = IPv4.toIPv4Address(H2);
 
-    private static final HTTP_PORT = 80;
+	private static final HTTP_PORT = 80;
 
-    // TODO: Better explain the path construct
+	// TODO: Better explain the path construct
 	private static final String[] H12_HIGH_PATH = { H1, "openflow:1:3", "openflow:2:2", "openflow:4:1" };
 	private static final String[] H12_LOW_PATH  = { H1, "openflow:1:4", "openflow:3:2", "openflow:4:1" };
 	private static final String[] H21_HIGH_PATH = { H2, "openflow:4:4", "openflow:2:1", "openflow:1:1" };
@@ -71,6 +74,7 @@ public class M1 extends MapleAppBase {
 
 			this.passToNext(pkt);
 
-		} 
-	} 
+		}
+		 
+	} // end of onPacket
 }
