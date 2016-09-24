@@ -19,12 +19,12 @@ import org.opendaylight.maple.core.increment.tracetree.Route;
 public class M1 extends MapleAppBase {
 
 	private static final String      H1    = "10.0.0.1";
-	private static final IPv4Address H1_IP = IPv4.toIPv4Address(H1);
+	private static final int H1_IP = IPv4.toIPv4Address(H1);
 
 	private static final String      H2    = "10.0.0.2";
-	private static final IPv4Address H2_IP = IPv4.toIPv4Address(H2);
+	private static final int H2_IP = IPv4.toIPv4Address(H2);
 
-	private static final HTTP_PORT = 80;
+	private static final int HTTP_PORT = 80;
 
 	// TODO: Better explain the path construct:
 	// TODO: Use s1, s2, ... in the construction if possible
