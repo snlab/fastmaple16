@@ -41,8 +41,7 @@ public class M1 extends MapleAppBase {
 
 			this.passToNext(pkt);
 
-		}
-		else {
+		} else {
 
 			// H1 (client) -> H2 (server)
 			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
