@@ -36,21 +36,19 @@ public class M1 extends MapleAppBase {
 	@Override
 	public void onPacket(MaplePacket pkt) {
 
-		// For non-IPv4 traffic; Use the next Maple App
-		if ( !pkt.ethTypeIs(Ethernet.TYPE_IPv4) ) {
+		EthernetType ethType = pkt.etherType();
 
-			this.passToNext(pkt);
-
-		} else {
-
+		// For IPv4 traffic only
+		if ( ethType == Ethernet.TYPE_IPv4) ) {
+			
 			// H1 (client) -> H2 (server)
 			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
 
 				String[] path = null;
 
-				if ( ! pkt.TCPDstPortIs(HTTP_PORT) ) {  // All non HTTP IP, e.g., UDP, SSH
+				if ( ! pkt.TCPDstPortIs(HTTP_PORT) ) {  // All non HTTP IP, e.g., UDP, PING, SSH
 					path = H12_LOW_PATH; 
-				} else {                                // HTTP traffic
+				} else {                                // Only HTTP traffic
 					path = H12_HIGH_PATH;
 				}
 
@@ -75,6 +73,10 @@ public class M1 extends MapleAppBase {
 				pkt.setRoute(Route.DROP);
 
 			}
+		}                       // end of ethType == Ethernet.TYPE_IPv4
+
+		else {                  // Other type of traffic handled by another Maple App
+			passToNext(pkt);
 		}
 
 	} // end of onPacket
