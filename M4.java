@@ -13,7 +13,7 @@ import org.opendaylight.maple.core.increment.packet.IPv4;
 import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
 import org.opendaylight.maple.core.increment.tracetree.Route;
 
-public class M4a extends MapleAppBase {
+public class M4 extends MapleAppBase {
 
 	String[] allowSrcIPs = { "10.0.0.1", "10.0.0.4", "10.0.0.6" };
 
