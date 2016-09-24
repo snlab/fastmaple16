@@ -28,15 +28,16 @@ def main():
 
     topo.addLink(h1, s1)
     topo.addLink(h3, s1)
-    topo.addLink(s1, s2)
-    topo.addLink(s1, s3)
-    topo.addLink(s2, s4)
-    topo.addLink(s3, s4)
     topo.addLink(h2, s4)
     topo.addLink(h4, s4)
     topo.addLink(h6, s4)
 
-    net = Mininet(topo=topo, switch=switch, controller=RemoteController,
+    topo.addLink(s1, s2)
+    topo.addLink(s1, s3)
+    topo.addLink(s2, s4)
+    topo.addLink(s3, s4)
+
+    net = Mininet(topo=topo, controller=RemoteController,
                   build=False, autoStaticArp = True)
     net.addController(ip=controller_ip)
     net.start()
