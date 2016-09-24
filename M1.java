@@ -6,7 +6,6 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-//TODO: package name
 package org.opendaylight.mapleapp.impl;
 
 // TODO: Need all these packages??
@@ -40,6 +39,7 @@ public class M1 extends MapleAppBase {
 
 		// For IPv4 traffic only
 		if ( ethType == Ethernet.TYPE_IPv4) {
+                System.out.println("M1 onPacket() is called");
 			
 			// H2 -> H1
 			if (  pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
@@ -58,7 +58,7 @@ public class M1 extends MapleAppBase {
 
 				String[] path = null;
 
-				if ( ! pkt.TCPDstPortIs(HTTP_PORT) ) {  // All non HTTP IP, e.g., UDP, PING, SSH
+				if ( !(pkt.TCPDstPortIs(HTTP_PORT)) ) {  // All non HTTP IP, e.g., UDP, PING, SSH
 					path = H12_LOW_PATH; 
 				} else {                                // Only HTTP traffic
 					path = H12_HIGH_PATH;
@@ -81,3 +81,4 @@ public class M1 extends MapleAppBase {
 
 	} // end of onPacket
 }
+
