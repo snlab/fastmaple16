@@ -5,16 +5,18 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-
-//TODO: package name
 package org.opendaylight.mapleapp.impl;
 
-// TODO: Need all these packages??
+import java.util.Map;
+
 import org.opendaylight.maple.core.increment.app.MapleAppBase;
+import org.opendaylight.maple.core.increment.app.MapleUtil;
 import org.opendaylight.maple.core.increment.packet.Ethernet;
 import org.opendaylight.maple.core.increment.packet.IPv4;
 import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
+import org.opendaylight.maple.core.increment.tracetree.Port;
 import org.opendaylight.maple.core.increment.tracetree.Route;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
 
 public class M2 extends MapleAppBase {
 
@@ -65,29 +67,32 @@ public class M2 extends MapleAppBase {
 
 			// Other host pairs
 			} 
-		}
 	} // end of staticRoute
 
 	@Override
 	public void onPacket(MaplePacket pkt) {
 
-		short ethType = pkt.etherType();
+		int ethType = pkt.ethType();
 
 		// For IPv4 traffic only
-		if ( ethType == Ethernet.TYPE_IPv4) ) {
+		if ( ethType == Ethernet.TYPE_IPv4 ) {
 			staticRoute( pkt );
-
-			if ( pkt.route() == null ) {
-				int srcIP = pkt.IPv4Src();
-				int dstIP = pkt.IPv4Dst();
-
-				Topology topo = (Topology) readData(TOPO_URL);
-				Map<Integer, Port> hostTable = (Map<Integer, Port>) readData(HOST_TABLE_URL);
-				Port srcPort = hostTable.get(srcIP);
-				Port dstPort = hostTable.get(dstIP);
-
-				pkt.setRoute(MapleUtil.shortestPath(topo.getLink(), srcPort, dstPort));
-			} 
+			
+			if (pkt.route() == null) {
+				if (pkt.TCPDstPortIs(80) || pkt.TCPSrcPortIs(80)) {
+					int srcIP = pkt.IPv4Src();
+					int dstIP = pkt.IPv4Dst();
+					
+					Topology topo = (Topology) readData(TOPO_URL);
+					Map<Integer, Port> hostTable = (Map<Integer, Port>) readData(HOST_TABLE_URL);
+					Port srcPort = hostTable.get(srcIP);
+					Port dstPort = hostTable.get(dstIP);
+					
+					pkt.setRoute(MapleUtil.shortestPath(topo.getLink(), srcPort, dstPort));
+				} else {
+					pkt.setRoute(Route.DROP);
+				}
+			}
 
 		} // end of IPv4 packets        
 
