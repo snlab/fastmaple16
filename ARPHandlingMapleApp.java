@@ -21,6 +21,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+package org.opendaylight.maple.core.increment.app.systemApps;
+
+import org.opendaylight.maple.core.increment.app.MapleAppBase;
+import org.opendaylight.maple.core.increment.packet.ARP;
+import org.opendaylight.maple.core.increment.packet.Ethernet;
+import org.opendaylight.maple.core.increment.packet.IPv4;
+import org.opendaylight.maple.core.increment.tracetree.MaplePacket;
+import org.opendaylight.maple.core.increment.tracetree.Port;
+import org.opendaylight.maple.core.increment.tracetree.Route;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ARPHandlingMapleApp extends MapleAppBase {
 	
@@ -69,7 +85,8 @@ public class ARPHandlingMapleApp extends MapleAppBase {
 					setAction(arpKey, pkt);
         		} else {
         			LOG.info("drop this dublicated arp");
-        			pkt.setRoute(Route.DROP);
+        			pkt.setRoute("null");
+        			//pkt.setRoute(Route.DROP);
         		}
         	}
         }else{
