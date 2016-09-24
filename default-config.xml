@@ -17,7 +17,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
       <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
         <module>
-          <chain>M4a</chain>
+          <chain>M4,M3</chain>
           <need-system-app>true</need-system-app>
           <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:mapleapp:impl">prefix:mapleapp</type>
           <name>mapleapp-impl</name>
