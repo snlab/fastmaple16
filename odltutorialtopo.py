@@ -6,10 +6,12 @@ from mininet.net import Mininet
 from mininet.topo import Topo
 from mininet.node import RemoteController
 from mininet.cli import CLI
-
+from functools import partial
+from mininet.node import OVSSwitch
 
 def main():
     controller_ip = sys.argv[1]
+    switch = partial( OVSSwitch, protocols='OpenFlow13' )
 
     topo = Topo()
 
@@ -34,7 +36,7 @@ def main():
     topo.addLink(h4, s4)
     topo.addLink(h6, s4)
 
-    net = Mininet(topo=topo, controller=RemoteController,
+    net = Mininet(topo=topo, switch=switch, controller=RemoteController,
                   build=False, autoStaticArp = True)
     net.addController(ip=controller_ip)
     net.start()
