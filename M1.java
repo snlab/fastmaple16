@@ -23,6 +23,7 @@ public class M1 extends MapleAppBase {
 
     private static final HTTP_PORT = 80;
 
+    // TODO: Better explain the path construct
 	private static final String[] H12_HIGH_PATH = { H1, "openflow:1:3", "openflow:2:2", "openflow:4:1" };
 	private static final String[] H12_LOW_PATH  = { H1, "openflow:1:4", "openflow:3:2", "openflow:4:1" };
 	private static final String[] H21_HIGH_PATH = { H2, "openflow:4:4", "openflow:2:1", "openflow:1:1" };
@@ -33,7 +34,7 @@ public class M1 extends MapleAppBase {
 
 		if ( pkt.ethTypeIs(Ethernet.TYPE_IPv4) ) {
 
-			// First check if traffic from H1 (client) to H2 (server)
+			// H1 (client) -> H2 (server)
 			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
 
 				String[] path = null;
@@ -43,9 +44,11 @@ public class M1 extends MapleAppBase {
 				} else {
 					path = H12_LOW_PATH;
 				}
+
+				// ***TODO***: Need to agree on either Route or Path, not both
 				pkt.setRoute(path);
 
-			// Next check if the reverse traffic
+			// Reverse: H2 -> H1
 			} else if ( pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
 
 				String[] path = null;
@@ -57,7 +60,7 @@ public class M1 extends MapleAppBase {
 				}
 				pkt.setRoute(path);
 
-			// Drop all other host pairs
+			// Other host pairs
 			} else {
 
 				pkt.setRoute(Route.DROP);
