@@ -18,11 +18,11 @@ import org.opendaylight.maple.core.increment.tracetree.Route;
 
 public class M1 extends MapleAppBase {
 
-	private static final String H1     = "10.0.0.1";
-	private static final int    H1_IP  = IPv4.toIPv4Address(H1);
+	private static final String      H1    = "10.0.0.1";
+	private static final int H1_IP = IPv4.toIPv4Address(H1);
 
-	private static final String H2     = "10.0.0.2";
-	private static final int    H2_IP  = IPv4.toIPv4Address(H2);
+	private static final String      H2    = "10.0.0.2";
+	private static final int H2_IP = IPv4.toIPv4Address(H2);
 
 	private static final int HTTP_PORT = 80;
 
@@ -36,13 +36,25 @@ public class M1 extends MapleAppBase {
 	@Override
 	public void onPacket(MaplePacket pkt) {
 
-		short ethType = pkt.etherType();
+		int ethType = pkt.ethType();
 
 		// For IPv4 traffic only
-		if ( ethType == Ethernet.TYPE_IPv4) ) {
+		if ( ethType == Ethernet.TYPE_IPv4) {
 			
-			// H1 (client) -> H2 (server)
-			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
+			// H2 -> H1
+			if (  pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
+
+				String[] path = null;
+
+				if ( ! pkt.TCPSrcPortIs(HTTP_PORT) ) {
+					path = H21_LOW_PATH;
+				} else {
+					path = H21_HIGH_PATH;
+				}
+				pkt.setRoute(path);
+            
+		    // H1 -> H2
+			} else if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
 
 				String[] path = null;
 
@@ -53,18 +65,6 @@ public class M1 extends MapleAppBase {
 				}
 
 				// ***TODO***: Need to agree on either Route or Path, not both
-				pkt.setRoute(path);
-
-			// Reverse: H2 -> H1
-			} else if ( pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
-
-				String[] path = null;
-
-				if ( ! pkt.TCPSrcPortIs(HTTP_PORT) ) {
-					path = H21_LOW_PATH;
-				} else {
-					path = H21_HIGH_PATH;
-				}
 				pkt.setRoute(path);
 
 			// Other host pairs
