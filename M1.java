@@ -45,7 +45,7 @@ public class M1 extends MapleAppBase {
 
 				String[] path = null;
 
-				if ( !(pkt.TCPDstPortIs(HTTP_PORT)) ) {  // All non HTTP IP, e.g., UDP, PING, SSH
+				if ( ! pkt.TCPDstPortIs(HTTP_PORT) ) {  // All non HTTP IP, e.g., UDP, PING, SSH
 					path = H12_LOW_PATH; 
 				} else {                                // Only HTTP traffic
 					path = H12_HIGH_PATH;
