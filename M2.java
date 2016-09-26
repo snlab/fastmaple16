@@ -65,13 +65,9 @@ public class M2 extends MapleAppBase {
 				}
 
 				pkt.setRoute(path);
-
 			 
-		} else { // All other pairs non than H1 <-> H2
-
-			pkt.setRoute(Route.DROP);
-
 		}
+		
 	} // end of staticRoute
 
 	@Override
