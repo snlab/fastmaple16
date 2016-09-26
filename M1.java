@@ -40,6 +40,7 @@ public class M1 extends MapleAppBase {
 		// For IPv4 traffic only
 		if ( ethType == Ethernet.TYPE_IPv4) {
 			
+			// H1 -> H2
 			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
 
 				String[] path = null;
