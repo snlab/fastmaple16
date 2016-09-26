@@ -63,10 +63,15 @@ public class M2 extends MapleAppBase {
 				} else {
 					path = H21_HIGH_PATH;
 				}
+
 				pkt.setRoute(path);
 
-			// Other host pairs
-			} 
+			 
+		} else { // All other pairs non than H1 <-> H2
+
+			pkt.setRoute(Route.DROP);
+
+		}
 	} // end of staticRoute
 
 	@Override
@@ -79,18 +84,25 @@ public class M2 extends MapleAppBase {
 			staticRoute( pkt );
 			
 			if (pkt.route() == null) {
-				if (pkt.TCPDstPortIs(80) || pkt.TCPSrcPortIs(80)) {
+
+				// Handle only HTTP traffic
+				if (pkt.TCPDstPortIs(HTTP_PORT) || pkt.TCPSrcPortIs(HTTP_PORT)) {
+
 					int srcIP = pkt.IPv4Src();
 					int dstIP = pkt.IPv4Dst();
 					
 					Topology topo = (Topology) readData(TOPO_URL);
 					Map<Integer, Port> hostTable = (Map<Integer, Port>) readData(HOST_TABLE_URL);
+
 					Port srcPort = hostTable.get(srcIP);
 					Port dstPort = hostTable.get(dstIP);
 					
 					pkt.setRoute(MapleUtil.shortestPath(topo.getLink(), srcPort, dstPort));
+
 				} else {
+
 					pkt.setRoute(Route.DROP);
+
 				}
 			}
 

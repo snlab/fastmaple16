@@ -51,7 +51,6 @@ public class M1 extends MapleAppBase {
 					path = H12_HIGH_PATH;
 				}
 
-				// ***TODO***: Need to agree on either Route or Path, not both
 				pkt.setRoute(path);
 
 			// Other host pairs
