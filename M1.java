@@ -27,10 +27,10 @@ public class M1 extends MapleAppBase {
 
 	// TODO: Better explain the path construct:
 	// TODO: Use s1, s2, ... in the construction if possible
-	private static final String[] H12_HIGH_PATH = { H1, "openflow:1:3", "openflow:2:2", "openflow:4:1" };
-	private static final String[] H12_LOW_PATH  = { H1, "openflow:1:4", "openflow:3:2", "openflow:4:1" };
-	private static final String[] H21_HIGH_PATH = { H2, "openflow:4:4", "openflow:2:1", "openflow:1:1" };
-	private static final String[] H21_LOW_PATH  = { H2, "openflow:4:5", "openflow:3:1", "openflow:1:1" };
+	private static final String[] H12_HIGH_PATH = { "openflow:1:3", "openflow:2:2", "openflow:4:1" };
+	private static final String[] H12_LOW_PATH  = { "openflow:1:4", "openflow:3:2", "openflow:4:1" };
+	private static final String[] H21_HIGH_PATH = { "openflow:4:4", "openflow:2:1", "openflow:1:1" };
+	private static final String[] H21_LOW_PATH  = { "openflow:4:5", "openflow:3:1", "openflow:1:1" };
 
 	@Override
 	public void onPacket(MaplePacket pkt) {
