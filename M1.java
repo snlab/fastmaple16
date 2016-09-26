@@ -39,22 +39,8 @@ public class M1 extends MapleAppBase {
 
 		// For IPv4 traffic only
 		if ( ethType == Ethernet.TYPE_IPv4) {
-                System.out.println("M1 onPacket() is called");
 			
-			// H2 -> H1
-			if (  pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
-
-				String[] path = null;
-
-				if ( ! pkt.TCPSrcPortIs(HTTP_PORT) ) {
-					path = H21_LOW_PATH;
-				} else {
-					path = H21_HIGH_PATH;
-				}
-				pkt.setRoute(path);
-            
-		    // H1 -> H2
-			} else if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
+			if ( pkt.IPv4SrcIs(H1_IP) && pkt.IPv4DstIs(H2_IP) ) {
 
 				String[] path = null;
 
@@ -68,6 +54,21 @@ public class M1 extends MapleAppBase {
 				pkt.setRoute(path);
 
 			// Other host pairs
+			}
+
+			// H2 -> H1
+			else if (  pkt.IPv4SrcIs(H2_IP) && pkt.IPv4DstIs(H1_IP) ) {
+
+				String[] path = null;
+
+				if ( ! pkt.TCPSrcPortIs(HTTP_PORT) ) {
+					path = H21_LOW_PATH;
+				} else {
+					path = H21_HIGH_PATH;
+				}
+				pkt.setRoute(path);
+            
+		    // All other pairs non than H1 <-> H2
 			} else {
 
 				pkt.setRoute(Route.DROP);
